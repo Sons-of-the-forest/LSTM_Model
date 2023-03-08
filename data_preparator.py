@@ -5,7 +5,7 @@ import os
 # import re
 
 class DataPreparator:
-    def __init__(self, folder_path='.\dataRaw'):
+    def __init__(self, folder_path='./dataRaw'):
         self.folder_path = folder_path
         self.words = []
         self.df_list = []
@@ -22,7 +22,7 @@ class DataPreparator:
         self.words = []
         for path in os.walk(self.folder_path):
             try :
-                self.words.append(path[0].split('\\')[2])
+                self.words.append(path[0].split('/')[2])
                 # print("Added folder "+ path[0].split('\\')[2] +" into list")
             except:
                 pass
@@ -33,13 +33,13 @@ class DataPreparator:
         self.df_property = []
 
         for word in self.words:
-            path = "{}\{}".format(self.folder_path, word)
+            path = "{}/{}".format(self.folder_path, word)
             files = []
             for file_path in os.walk(path):
                 files = file_path[2]
             
             for i, file in enumerate(files):
-                file_path = path + "\{}".format(file)
+                file_path = path + "/{}".format(file)
                 df = pd.read_csv(file_path)
                 df = df[['First Byte', ' Second Byte', ' Brainwave Value']]
                 df.columns = ['v_0', 'v_1', 'v_b']
